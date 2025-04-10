@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js Fetch Example</title>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+</head>
+<body>
+
+    <div x-data="{ message: 'Loading...' }" x-init="fetchMessage($data)">       
+        <h1 x-text="fullname"></h1>
+        <h1 x-text="year_level"></h1>
+        <h1 x-text="dept"></h1>
+    </div>
+
+    <a href="submit.html"> go to submit page</a>
+    
+    <script>
+
+        function fetchMessage(dataparam) {
+            fetch('http://172.17.100.14:3326/default/api/students/')
+            .then(response => response.json())
+            .then(data => {
+
+                    console.log(data)
+                    // Ensure to check if data.students and the student ID exist
+                    const studentId = 4; // You can dynamically change this if needed
+
+                    if (data[studentId]) {  // Ensure the student exists
+                        dataparam.fullname = data[studentId].name; // Access student_id
+                        dataparam.year_level = data[studentId].name; // Access student_id
+                        dataparam.dept = data[studentId].name; // Access student_id
+                    } else {
+                        dataparam.fullname = 'Student not found';
+                    }
+                    
+            })
+            .catch(() => dataparam.fullname = 'Failed to load message');
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Message</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+    <div x-data="messageForm()">
+
+        <h1 x-text="latestMessage"></h1>
+
+        <input type="text" x-model="messageText" placeholder="Enter your message" />
+
+        <button @click="submitMessage">Send</button>
+
+        <p x-text="responseMessage"></p>
+    </div>
+
+    <a href="index.html">Back to Home</a>
+
+    <script>
+        function messageForm() {
+        return {
+            messageText: '',
+            responseMessage: '',
+            latestMessage: 'Loading...',  // âœ… Default text before fetching
+
+            submitMessage() {
+                fetch('http://172.17.100.14:3326/default/api/students/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: this.messageText })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.fullResponse = data;  // âœ… Store full JSON response
+                    this.responseMessage = 'Message Sent Successfully!';
+                    this.latestMessage = data.message;  // âœ… Display "Bounce Back"
+
+                    console.log("Response Data:", data);  // âœ… Debugging step
+                    
+
+                })
+                .catch(() => this.responseMessage = 'Failed to send message');
+            }
+        
+
+        }
+    }
+    </script>
+
+</body>
+</html>
