@@ -1,8 +1,6 @@
+# api/urls.py
 from django.urls import path
-from .import views
-from .views import HelloWorld
-from .views import Students
-from .views import ContactListView
+from .views import HelloWorld, Students, ContactListView, ProductListCreateView  # Import the Product view
 from .exam_views import ChatView
 
 urlpatterns = [
@@ -11,4 +9,5 @@ urlpatterns = [
     path('students/', Students.as_view(), name='list_student'),
     path('api/contact/', Students.as_view(), name='contact'),
     path('exam/', ChatView.as_view(), name='chat_view'),
+    path('product/', ProductListCreateView.as_view(), name='product_list_create'),
 ]

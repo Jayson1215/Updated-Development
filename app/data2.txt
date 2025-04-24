@@ -1,0 +1,11 @@
+{
+  "name": "Realme GT 2 Pro",
+  "desc": "Snapdragon 8 Gen 1, 50MP camera, 120Hz AMOLED display.",
+  "price": 799.99,
+  "stock": 100,
+  "category": "Smartphones",
+  "brand": "Realme",
+  "supplier": "Realme",
+  "warranty": "1 Year",
+  "image": null
+}
